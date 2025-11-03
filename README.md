@@ -1,0 +1,76 @@
+Gur yvsr is an esoteric programming language (or esolang) inspired by Brainfuck and Emmental, though it is not as confusing as either of them (it's still not easy to program in).
+It is named after [the song of the same name](https://soundcloud.com/frums/gur-yvsr-kari?si=e89d2e107b8249a3b2f075d455994f43&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing).
+
+How It Works
+---
+*You can find more information about this esolang on [its esolangs.org page](https://esolangs.org/wiki/Gur_yvsr).*
+
+Gur yvsr's syntax is composed of single-character commands as well as comments. Comments are surrounded by backticks (\`), like so:
+```
+`I will be ignored.`
+```
+
+Gur yvsr is both accumulator-based and cell-based. In other words, it features an accumulator which can hold a pointer-sized integer (32-bit on 32-bit systems and 64-bit on 64-bit systems), as well as a memory tape which also holds pointer-sized integers. Both the accumulator and tape can be read from and written to.
+
+There is a data pointer that points to a specific location on the tape, and it starts pointing at the 0th location (cell 0). Unlike Brainfuck, where the pointer only moves when specified, this data pointer will continuously move one position in the direction it's facing (positive or negative) after each command is executed and only stops moving for 1 command after certain cammands are executed. The pointer starts moving in the positive direction, but it can move in the negative direction as well.
+
+A code pointer also exists; it points to a specific command in the program. Unlike the data pointer, it cannot change direction. However, its position can be changed when executing certain commands. It is important to note that command execution occurs before the pointers move.
+
+Table of Commands
+---
+
+<table>
+  <tr><th colspan=2>Key</th></tr>
+  <tr><td>c</td><td>the value of cell the data pointer is pointing to</td></tr>
+  <tr><td>l</td><td>the value of cell one cell in the negative direction of c</td></tr>
+  <tr><td>a</td><td>the accumulator's value</td></tr>
+  <tr><td>C</td><td>the cell the data pointer is pointing to</td></tr>
+  <tr><td>L</td><td>the cell one cell in the negative direction of c</td></tr>
+  <tr><td>A</td><td>the accumulator</td></tr>
+</table>
+
+| Command | Name | Function | Halts data pointer for 1 command? |
+| - | - | - | - |
+| `_` | no-op | No operation. | No |
+| `.` | stop | Stops the program. | No |
+| `#` | create int | Indicates the creation of an integer. If a `#` had been executed directly before a digit was executed, then a `SyntaxError` will be thrown. An `AccumulatorError` will be thrown if the accumulator is full when this command is executed. | Yes |
+| `0`-`9` | digit | If A is empty, sets a to that digit's value. Otherwise, multiplies a by 10 and adds the digit's value to a. If a `#` had not been executed directly before a digit was executed, then a `SyntaxError` will be thrown. | Yes |
+| `U` | unload | Sets c to a and clears A. If A is empty, then an `AccumulatorError` is thrown. | No |
+| `u` | distribute | Sets c to a. If A is empty, then an `AccumulatorError` is thrown. | No |
+| `R` | recall/retrieve | Sets a to c and clears C. If C is empty, then an `OpError` is thrown. | No |
+| `r` | copy | Sets a to c. If C is empty, then an `OpError` is thrown. | No |
+| `C` | clear accumulator | Clears the accumulator. | No |
+| `c` | clear current cell | Clears C. | No |
+| `?` | if | Checks if C is empty or if c = 0. If so, the code pointer jumps to a matching `@`. If a matching `@` does not exist, a `SyntaxError` is thrown. | No |
+| `!` | inverted if | Checks if C is not empty and if c ≠ 0. If so, the code pointer jumps to a matching `@`. If a matching `@` does not exist, a `SyntaxError` is thrown. | No |
+| `T` | targeted if | Checks if the cell with index a is empty or if that cell's value is 0. If so, the code pointer jumps to a matching `@`. If a matching `@` does not exist, a `SyntaxError` is thrown. Additionally, an `AccumulatorError` will be thrown if A is empty. | No |
+| `t` | targeted inverted if | Checks if the cell with index a is not empty and if that cell's value is not 0. If so, the code pointer jumps to a matching `@`. If a matching `@` does not exist, a `SyntaxError` is thrown. Additionally, an `AccumulatorError` will be thrown if A is empty. | No |
+| `A` | if accumulator | Checks if A is empty or if a = 0. If so, the code pointer jumps to a matching `@`. If a matching `@` does not exist, a `SyntaxError` is thrown. | No |
+| `a` | inverted if accumulator | Checks if A is not empty and if a ≠ 0. If so, the code pointer jumps to a matching `@`. If a matching `@` does not exist, a `SyntaxError` is thrown. | No |
+| `@` | conditional destination | By itself, it behaves like `_`. Matches with a conditional command (`?`, `!`, `T`, `t`, `A`, `a`) to form a conditional statement. These statements can be nested. | No |
+| `J` | jump commands | Makes the code pointer jump a commands forward and clears A. The command jumped to will not be executed. If the code pointer gets pushed beyond the boundaries of the program, then an `OutOfBoundsError` will be thrown. | No |
+| `j` | jump to command | Makes the code pointer jump to the ath command and clears A. The command jumped to will not be executed. If the code pointer gets pushed beyond the boundaries of the program, then an `OutOfBoundsError` will be thrown. | No |
+| `K` | jump cells | Makes the data pointer jump a cells in the positive direction and clears A. If the data pointer gets pushed beyond the boundaries of the tape (min index -2<sup>63</sup>+1 or -2<sup>31</sup>+1, max index 2<sup>63</sup>-1 or 2<sup>31</sup>-1), then an `OutOfBoundsError` will be thrown. | Yes |
+| `k` | jump to cell | Makes the data pointer jump to the cell at index a on the tape clears A. | Yes |
+| `F` or `f` | flip data pointer | Flips the direction of the data pointer. | No |
+| `M` | move until empty | Moves the data pointer in the direction it's moving in until C is empty. | Yes |
+| `m` | move until full | Moves the data pointer in the direction it's moving in until C is full. | Yes |
+| `+` | add | Sets a to l + c. If the result is under the min pointer-sized integer value or over the max pointer-sized integer value, an `OverflowError` will be thrown. If either L or C is empty, then an `OpError` will be thrown. | No |
+| `-` | negate | Sets a to -a. If the result is under the min pointer-sized integer value or over the max pointer-sized integer value, an `OverflowError` will be thrown. If C is empty, then an `OpError` will be thrown. | No |
+| `*` | multiply | Sets a to l × c. If the result is under the min pointer-sized integer value or over the max pointer-sized integer value, an `OverflowError` will be thrown. If either L or C is empty, then an `OpError` will be thrown. | No |
+| `/` | divide | Sets a to ⌊l ÷ c⌋. If the result is under the min pointer-sized integer value or over the max pointer-sized integer value, an `OverflowError` will be thrown. If either L or C is empty or division by 0 is attempted, then an `OpError` will be thrown. | No |
+| `%` | remainder | Sets a to l mod c. If the result is under the min pointer-sized integer value or over the max pointer-sized integer value, an `OverflowError` will be thrown. If either L or C is empty or division by 0 is attempted, then an `OpError` will be thrown. | No |
+| `=` | equals | Sets a to 1 if l = c and 0 if not. If either L or C is empty, then an `OpError` will be thrown. | No |
+| `N` or `n` | not equal | Sets a to 1 if l ≠ c and 0 if not. If either L or C is empty, then an `OpError` will be thrown. | No |
+| `>` | greater than | Sets a to 1 if l > c and 0 if not. If either L or C is empty, then an `OpError` will be thrown. | No |
+| `G` or `g` | greater than or equal to | Sets a to 1 if l ≥ c and 0 if not. If either L or C is empty, then an `OpError` will be thrown. | No |
+| `<` | less than | Sets a to 1 if l < c and 0 if not. If either L or C is empty, then an `OpError` will be thrown. | No |
+| `L` or `l` | less than or equal to | Sets a to 1 if l ≤ c and 0 if not. If either L or C is empty, then an `OpError` will be thrown. | No |
+| `&` | bitwise and | Sets a to l AND c. If either L or C is empty, then an `OpError` will be thrown. | No |
+| `\|` | bitwise or | Sets a to l OR c. If either L or C is empty, then an `OpError` will be thrown. | No |
+| `~` | bitwise not | Sets a to NOT c. If C is empty, then an `OpError` will be thrown. | No |
+| `^` | bitwise xor | Sets a to l XOR c. If either L or C is empty, then an `OpError` will be thrown. | No |
+| `i` | output as int | Prints c to standard output. If C is empty, then an `OpError` will be thrown. | No |
+| `s` | output as character | Prints c as a UTF-8 character to standard output. If C is empty or if c cannot be represented as a valid UTF-8 character, then an `OpError` will be thrown. | No |
+| `I` | get int | Sets a to standard input. If the input given cannot be represented as a pointer-sized integer, then an `InputError` will be thrown. | No |
+| `S` | get string | Gets string input and stores each of its characters onto the tape, starting at C and moving in the positive direction. If the input given contains invalid characters or if the input goes beyond the boundaries of the tape, then an `InputError` will be thrown. | No |
