@@ -14,7 +14,7 @@ Gur yvsr is both accumulator-based and cell-based. In other words, it features a
 
 There is a data pointer that points to a specific location on the tape, and it starts pointing at the 0th location (cell 0). Unlike Brainfuck, where the pointer only moves when specified, this data pointer will continuously move one position in the direction it's facing (positive or negative) after each command is executed and only stops moving for 1 command after certain cammands are executed. The pointer starts moving in the positive direction, but it can move in the negative direction as well.
 
-A code pointer also exists; it points to a specific command in the program. Unlike the data pointer, it cannot change direction. However, its position can be changed when executing certain commands. It is important to note that command execution occurs before the pointers move.
+A code pointer also exists; it points to a specific command in the program, starting at the very first command and executing left to right, top to bottom. Unlike the data pointer, it cannot change direction. However, its position can be changed when executing certain commands. It is important to note that command execution occurs before the pointers move.
 
 Table of Commands
 ---
