@@ -1,0 +1,4 @@
+IU `get integer input and put it on the tape`
+#2-K! `check if the input is nonzero`
+#2-Ki. `if no, print a single 0`
+@#0ki#9-J `otherwise, print the input infinitely`

@@ -1,0 +1,4 @@
+S `get in input from the user`
+#2-K? `repeatedly check if current cell is empty`
+#2-Ks#2-K#4j `if no: print current cell's value as character and move onto next cell`
+@. `if yes: end program`
