@@ -72,5 +72,5 @@ Table of Commands
 | `^` | bitwise xor | Sets a to l XOR c. If either L or C is empty, then an `OpError` will be thrown. | No |
 | `i` | output as int | Prints c to standard output. If C is empty, then an `OpError` will be thrown. | No |
 | `s` | output as character | Prints c as a UTF-8 character to standard output. If C is empty or if c cannot be represented as a valid UTF-8 character, then an `OpError` will be thrown. | No |
-| `I` | get int | Sets a to standard input. If the input given cannot be represented as a pointer-sized integer, then an `InputError` will be thrown. | No |
+| `I` | get int | Sets a to standard input. If the input given cannot be represented as a pointer-sized integer, then an `InputError` will be thrown. | Yes |
 | `S` | get string | Gets string input and stores each of its characters onto the tape, starting at C and moving in the positive direction. If the input given contains invalid characters or if the input goes beyond the boundaries of the tape, then an `InputError` will be thrown. | No |
