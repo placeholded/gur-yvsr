@@ -1,6 +1,19 @@
 Gur yvsr is an esoteric programming language (or esolang) inspired by Brainfuck and Emmental, though it is not as confusing as either of them (it's still not easy to program in).
 It is named after [the song of the same name](https://soundcloud.com/frums/gur-yvsr-kari?si=e89d2e107b8249a3b2f075d455994f43&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing).
 
+Running gur yvsr
+---
+Open up your terminal and enter the following (replace \<path\> with the root directory to this project):
+``` bash
+cd <path>
+```
+Then, enter the following into the command line (replace \<path\> with the path to the file you want to run):
+``` bash
+cargo run <path>
+```
+Note: Programs in gur yvsr must have a .gur extension.
+You can check out the example programs in the `example_programs` folder.
+
 How It Works
 ---
 *You can find more information about this esolang on [its esolangs.org page](https://esolangs.org/wiki/Gur_yvsr).*
