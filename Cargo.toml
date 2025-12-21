@@ -5,6 +5,7 @@ description = "Rust implementation of the esoteric programming language gur yvsr
 license = "Apache-2.0"
 edition = "2024"
 readme = "README.md"
+repository = "https://github.com/placeholded/gur-yvsr"
 
 [dependencies]
 clap = { version = "4.5.53", features = ["derive"] }
