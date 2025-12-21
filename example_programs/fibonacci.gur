@@ -1,3 +1,8 @@
-`WARNING: THIS PROGRAM WILL THROW AN ERROR!`
-#0U#1U `first: cell 0, second: cell 1`
-#1k+UF_RU#2kRUFi#1-k#10UFsF#5j
+`WARNING: THIS PROGRAM WILL THROW AN ERROR BECAUSE IT CAUSES OVERFLOW!`
+#0U#1U `0: cell 0, 1: cell 1`
+#1k+ `go to cell 1 and add cell 1 and cell 2's values together`
+UF `place that value at cell 2 and flip`
+_RU `move cell 1's value to cell 0`
+#2kRU `move cell 2's value to cell 1`
+Fi `print cell 1`
+#1-k#10UFsF#5j `print newline at cell -1 and close loop`

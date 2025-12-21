@@ -1,8 +1,9 @@
 pub mod lex {
     use regex::Regex;
     use crate::errors::err::Error;
-
+    
     pub enum Token {
+        Nothing,           // default
         NoOp,              // _
         Stop,              // .
         CreatingNumber,    // #
@@ -106,67 +107,64 @@ pub mod lex {
         }
         tokens
     }
-    pub fn token_to_symbol(token: Option<&Token>) -> &str {
-        if let Some(c) = token {
-            match c {
-                Token::NoOp => "_",
-                Token::Stop => ".",
-                Token::CreatingNumber => "#",
-                Token::Digit(n) => match n {
-                    0 => "0",
-                    1 => "1",
-                    2 => "2",
-                    3 => "3",
-                    4 => "4",
-                    5 => "5",
-                    6 => "6",
-                    7 => "7",
-                    8 => "8",
-                    9 => "9",
-                    _ => ""
-                },
-                Token::Unload => "U",
-                Token::Distribute => "u",
-                Token::Recall => "R",
-                Token::Copy => "r",
-                Token::ClearAcc => "C",
-                Token::ClearCurrCell => "c",
-                Token::ZeroOrEmpty => "?",
-                Token::NotZeroOrEmpty => "!",
-                Token::TgtZeroOrEmpty => "T",
-                Token::TgtNotZeroOrEmpty => "t",
-                Token::AccZeroOrEmpty => "A",
-                Token::AccNotZeroOrEmpty => "a",
-                Token::DestinationIfTrue => "@",
-                Token::JumpCellsC => "J",
-                Token::JumpToCellC => "j",
-                Token::JumpCellsD => "K",
-                Token::JumpToCellD => "k",
-                Token::FlipD(n) => if *n { "F" } else { "f" },
-                Token::MoveDUntilEmpty => "M",
-                Token::MoveDUntilFull => "m",
-                Token::Add => "+",
-                Token::Neg => "-",
-                Token::Mul => "*",
-                Token::Div => "/",
-                Token::Mod => "%",
-                Token::Eq => "=",
-                Token::NotEq(n) => if *n { "N" } else { "n" },
-                Token::Gt => ">",
-                Token::GE(n) => if *n { "G" } else { "g" },
-                Token::Lt => "<",
-                Token::LE(n) => if *n { "L" } else { "l" },
-                Token::BitAnd => "&",
-                Token::BitOr => "|",
-                Token::BitNot => "~",
-                Token::BitXor => "^",
-                Token::OutputInt => "i",
-                Token::OutputChar => "s",
-                Token::InputInt => "I",
-                Token::InputStr => "S"
-            }
-        } else {
-            "<none>"
+    pub fn token_to_symbol(token: &Token) -> &str {
+        match *token {
+            Token::Nothing => "<none>",
+            Token::NoOp => "_",
+            Token::Stop => ".",
+            Token::CreatingNumber => "#",
+            Token::Digit(n) => match n {
+                0 => "0",
+                1 => "1",
+                2 => "2",
+                3 => "3",
+                4 => "4",
+                5 => "5",
+                6 => "6",
+                7 => "7",
+                8 => "8",
+                9 => "9",
+                _ => "" 
+            },
+            Token::Unload => "U",
+            Token::Distribute => "u",
+            Token::Recall => "R",
+            Token::Copy => "r",
+            Token::ClearAcc => "C",
+            Token::ClearCurrCell => "c", 
+            Token::ZeroOrEmpty => "?",
+            Token::NotZeroOrEmpty => "!",
+            Token::TgtZeroOrEmpty => "T",
+            Token::TgtNotZeroOrEmpty => "t",
+            Token::AccZeroOrEmpty => "A",
+            Token::AccNotZeroOrEmpty => "a",
+            Token::DestinationIfTrue => "@",
+            Token::JumpCellsC => "J",
+            Token::JumpToCellC => "j",
+            Token::JumpCellsD => "K",
+            Token::JumpToCellD => "k",
+            Token::FlipD(n) => if n { "F" } else { "f" },
+            Token::MoveDUntilEmpty => "M",
+            Token::MoveDUntilFull => "m",
+            Token::Add => "+",
+            Token::Neg => "-",
+            Token::Mul => "*",
+            Token::Div => "/",
+            Token::Mod => "%",
+            Token::Eq => "=",
+            Token::NotEq(n) => if n { "N" } else { "n" },
+            Token::Gt => ">",
+            Token::GE(n) => if n { "G" } else { "g" },
+            Token::Lt => "<",
+            Token::LE(n) => if n { "L" } else { "l" },
+            Token::BitAnd => "&",
+            Token::BitOr => "|",
+            Token::BitNot => "~",
+            Token::BitXor => "^",
+            Token::OutputInt => "i",
+            Token::OutputChar => "s",
+            Token::InputInt => "I",
+            Token::InputStr => "S"
         }
     }
 }

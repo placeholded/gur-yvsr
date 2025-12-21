@@ -14,7 +14,6 @@ pub mod err {
         InputError,
         OutOfBoundsError,
         OverflowError,
-        CommandLineArgsError
     }
 
     impl Error {
