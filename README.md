@@ -3,14 +3,15 @@ It is named after [the song of the same name](https://soundcloud.com/frums/gur-y
 
 Installation
 ---
-First, make sure that Rust is installed.
-You may install this from source (replace `<path>` with the path to the repository):
+First, make sure that Rust is installed. See https://rust-lang.org/tools/install/ for how to do so.
+
+You may install this repository from source (replace `<path>` with the path to the repository):
 ``` bash
 git clone https://github.com/placeholded/gur-yvsr
 cd <path>
 cargo build --release
 ```
-You may also install this through crates.io:
+You may also install it through crates.io:
 ```
 cargo install guryvsr
 ```
