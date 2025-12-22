@@ -9,7 +9,7 @@ You may install this repository from source (replace `<path>` with the path to t
 ``` bash
 git clone https://github.com/placeholded/gur-yvsr
 cd <path>
-cargo build --release
+cargo install --path .
 ```
 You may also install it through crates.io:
 ```
