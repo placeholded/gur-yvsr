@@ -17,7 +17,6 @@ cargo install guryvsr
 ```
 
 Note: Programs in gur yvsr must have a .gur extension.
-You can check out the example programs in the `example_programs` folder.
 
 How It Works
 ---
