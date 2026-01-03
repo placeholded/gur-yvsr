@@ -3,7 +3,7 @@ It is named after [the song of the same name](https://soundcloud.com/frums/gur-y
 
 Installation
 ---
-First, make sure that Rust is installed. See https://rust-lang.org/tools/install/ for how to do so.
+First, make sure that Rust is installed. See https://rust-lang.org/tools/install/ for how to install Rust.
 
 You may install this repository from source (replace `<path>` with the path to the repository):
 ``` bash
@@ -69,7 +69,7 @@ Table of Commands
 | `J`        | jump commands            | Makes the code pointer jump a commands forward and clears A. The command jumped to will not be executed. If the code pointer gets pushed beyond the boundaries of the program, then an `OutOfBoundsError` will be thrown.                                                                    | No                                |
 | `j`        | jump to command          | Makes the code pointer jump to the ath command and clears A. The command jumped to will not be executed. If the code pointer gets pushed beyond the boundaries of the program, then an `OutOfBoundsError` will be thrown.                                                                    | No                                |
 | `K`        | jump cells               | Makes the data pointer jump a cells in the positive direction and clears A. If the data pointer gets pushed beyond the boundaries of the tape (min index -2<sup>63</sup>+1 or -2<sup>31</sup>+1, max index 2<sup>63</sup>-1 or 2<sup>31</sup>-1), then an `OutOfBoundsError` will be thrown. | Yes                               |
-| `k`        | jump to cell             | Makes the data pointer jump to the cell at index a on the tape clears A.                                                                                                                                                                                                                     | Yes                               |
+| `k`        | jump to cell             | Makes the data pointer jump to the cell at index a on the tape and clears A.                                                                                                                                                                                                                 | Yes                               |
 | `F` or `f` | flip data pointer        | Flips the direction of the data pointer.                                                                                                                                                                                                                                                     | No                                |
 | `M`        | move until empty         | Moves the data pointer in the direction it's moving in until C is empty.                                                                                                                                                                                                                     | Yes                               |
 | `m`        | move until full          | Moves the data pointer in the direction it's moving in until C is full.                                                                                                                                                                                                                      | Yes                               |
